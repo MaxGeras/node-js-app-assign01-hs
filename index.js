@@ -67,6 +67,8 @@ express()
 							} 
 						}
 				}
+				
+				index++;
 			}
 			// Get reformatted output String from character array.
 			output = reformattedOutput.join("");
