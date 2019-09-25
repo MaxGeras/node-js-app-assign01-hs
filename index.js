@@ -10,22 +10,24 @@ express()
   .post('/reformat', (req, res) => res.send(reformatString(req)))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
   
- /********************************
+ /********************************************************
  * We ensured that the input String has been validated for
- * white spaces and the format.
- *********************************/
+ * WHITE SPACES between commas and the format on the Client Side
+ *********************************************************/
  reformatString = (req) => {
 	// validate request 
 	var isValid = req && req.query && req.query.input;
 	var output = isValid ? req.query.input : null;
 	// reformat string if we have valid request and characterSet 
 	if (isValid && req.query.input.length > 0) {
-		if (req.query.input.indexOf('"') > -1) {
+		// Looking for ' " ' and ' , '
+		if (req.query.input.indexOf('"') > -1 || req.query.input.indexOf(',') > -1) {
 			// Define variables
 			var isOpenBracket = false;
 			var reformattedOutput = [];
 			var charArray = req.query.input.split('');
 			
+			// Loop through each character and replace "" with [] and , with ' '
 			for (var index = 0; index < charArray.length; index++) {
 				switch(charArray[index]) {	
 					case '"':
